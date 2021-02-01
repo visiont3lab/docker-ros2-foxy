@@ -9,5 +9,6 @@ cd $ROS2_FOXY_ENV && ./scripts.sh
 cd /home/ws/src  && ./installation.sh
 
 # Second-Third - Time
+docker start ros2ws
 docker exec -it ros2ws /bin/bash
 ```
