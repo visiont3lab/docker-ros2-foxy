@@ -3,12 +3,12 @@ import keras
 import cv2
 import traceback
 
-from src.keras_utils 			import load_model
+from utils.keras_utils 			import load_model
 from glob 						import glob
 from os.path 					import splitext, basename
-from src.utils 					import im2single,getWH
-from src.keras_utils 			import load_model, detect_lp
-from src.label 					import Shape, writeShapes
+from utils.utils 				import im2single,getWH
+from utils.keras_utils 			import load_model, detect_lp
+from utils.label 				import Shape, writeShapes
 
 import numpy as np
 

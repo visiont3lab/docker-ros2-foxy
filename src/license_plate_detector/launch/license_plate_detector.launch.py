@@ -10,4 +10,11 @@ def generate_launch_description():
             name='license_plate_detector_node',
             output='screen'
         ),
+        Node(
+            package='license_plate_detector',
+            namespace='license_plate_detector',
+            executable='license_plate_detector_service_node',
+            name='license_plate_detector_service_node',
+            output='screen'
+        ),
     ])

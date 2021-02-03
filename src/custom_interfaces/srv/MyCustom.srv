@@ -1,0 +1,4 @@
+string path
+---
+bool res
+string message

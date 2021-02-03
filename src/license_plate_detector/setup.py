@@ -25,6 +25,7 @@ setup(
     entry_points={
         'console_scripts': [
 		'license_plate_detector_node = license_plate_detector.license_plate_detector:main',
+        'license_plate_detector_service_node = license_plate_detector.license_plate_detector_service:main',
         ],
     },
 )
