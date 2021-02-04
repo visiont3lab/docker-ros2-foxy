@@ -6,14 +6,16 @@ from sensor_msgs.msg import Image
 import cv2
 import numpy as np
 import os 
+import sys
+from ament_index_python.packages import get_package_share_directory
 
 class MinimalPublisher(Node):
       def __init__(self):
          super().__init__('template_pkg_publisher_node')
+         path = os.path.join(get_package_share_directory('template_pkg'), 'images', 'sample1.png')
          self.publisher_ = self.create_publisher(Image, 'image_raw', 10)
          timer_period = 0.5  # seconds
          self.timer = self.create_timer(timer_period, self.timer_callback)
-         path = os.path.join('/ws/src/template_pkg/template_pkg','data','sample1.png')
          self.cv_image = cv2.imread(path,1) ### an RGB image 
          self.bridge = CvBridge()
 
