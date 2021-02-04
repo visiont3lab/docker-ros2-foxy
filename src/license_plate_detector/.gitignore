@@ -1,6 +1,6 @@
-license_plate_detector/datasets
-license_plate_detector/data/ocr
-license_plate_detector/data/vehicle-detector
+license_plate_detector/src/datasets
+license_plate_detector/src/data/ocr
+license_plate_detector/src/data/vehicle-detector
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

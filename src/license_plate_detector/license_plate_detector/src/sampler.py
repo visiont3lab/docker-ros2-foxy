@@ -3,9 +3,9 @@ import cv2
 import numpy as np
 import random
 
-from utils.utils 	import im2single, getWH, hsv_transform, IOU_centre_and_dims
-from utils.label	import Label
-from utils.projection_utils import perspective_transform, find_T_matrix, getRectPts
+from license_plate_detector.src.utils 	import im2single, getWH, hsv_transform, IOU_centre_and_dims
+from license_plate_detector.src.label	import Label
+from license_plate_detector.src.projection_utils import perspective_transform, find_T_matrix, getRectPts
 
 
 def labels2output_map(label,lppts,dim,stride):

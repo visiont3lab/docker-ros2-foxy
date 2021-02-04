@@ -2,20 +2,26 @@ import sys, os
 import keras
 import cv2
 import traceback
-from utils.keras_utils 			import load_model
 from glob 						import glob
 from os.path 					import splitext, basename
-from utils.utils 				import im2single,getWH
-from utils.keras_utils 			import load_model, detect_lp
-from utils.label 				import Shape, writeShapes
 import numpy as np
 import imutils
 
+#from utils.keras_utils 			import load_model, detect_lp
+#from utils.label 				import Shape, writeShapes
+#from utils.utils 				import im2single,getWH
+
+from license_plate_detector.src.utils 				import im2single,getWH
+from license_plate_detector.src.keras_utils 		import load_model, detect_lp
+from license_plate_detector.src.label 				import Shape, writeShapes
+
+from datetime import datetime 
+
 class LicensePlateDetector:
     
-	def __init__(self):
-		wpod_net_path =os.path.join("data","lp-detector","wpod-net_update1.h5")
-		self.wpod_net = load_model(wpod_net_path)
+	def __init__(self,model_path="data/lp-detector/wpod-net_update1.h5"):
+		self.wpod_net = load_model(model_path)
+		#self.processing = False
 
 	def getPoints(self,pts):
 		rtl = np.int(pts[0][0]  )
@@ -92,7 +98,43 @@ class LicensePlateDetector:
 		#imDraw = np.where(mask==np.array([0, 0, 0]),imDraw,imBlurred)
 		return imDraw
 
+	def processVideo(self,inp_path,out_path):
+		cap = cv2.VideoCapture(os.path.join(inp_path))
 
+		now = datetime.now()
+		name = now.strftime("%m/%d/%Y %H:%M:%S")
+		cv2.namedWindow(name, cv2.WINDOW_NORMAL)
+
+		frame_width = int(cap.get(3))
+		frame_height = int(cap.get(4))
+		fourcc = cv2.VideoWriter_fourcc(*'mp4v')# cv2.VideoWriter_fourcc('M','J','P','G')
+		outVideo = cv2.VideoWriter(out_path,fourcc, 10, (frame_width,frame_height))
+
+		while(cap.isOpened()): # and self.processing==True):
+			ret, frame = cap.read()
+			if ret==True: 
+				# Cool FIlter for emphasize detail (OCR)
+				#mask = np.zeros(frame.shape, frame.dtype)
+				#mask = cv2.bitwise_and(frame,mask)			
+				#frame = cv2.bitwise_not(frame,mask)				
+
+				res,frame,Lpts,LpImgs = self.predict(frame)
+
+				if res:				
+					cv2.imshow(name,frame)
+					cv2.waitKey(1)
+				else:
+					pass
+			
+				outVideo.write(frame)			
+			else:
+				break
+
+		#self.processing = False
+		# Release everything if job is finished
+		cap.release()
+		cv2.destroyAllWindows()
+	
 def testFromFolder():
 	try:	
 		Lpd = LicensePlateDetector()
@@ -148,7 +190,7 @@ def testRealTime():
 
 			if res:				
 				cv2.imshow("Results",frame)
-				cv2.waitKey(33)
+				cv2.waitKey(1)
 			else:
 				pass
 

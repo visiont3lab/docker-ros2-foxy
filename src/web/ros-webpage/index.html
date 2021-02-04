@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!--https://colorhunt.co/palettes/dark-->
+        <style>
+            body{
+                background-color: #1a1c23;
+                color :white;
+                margin: 40px 450px 40px 450px;
+                
+            }
+            img {
+                border-radius: 5px;
+                height: 100%; width: 100%; object-fit: contain;
+            }
+            .grid-container {
+                display: grid;
+                grid-template-columns: auto auto auto;
+                background-color: #1a1c23;
+                border: 2px solid #00ADB5;
+                /*padding: 10px;*/
+            }
+            .grid-item {
+                /*background-color: #0E1428;*/
+                /*border: 1px solid #00ADB5; */
+                /*font-size: 30px;text-align: center;*/
+                margin: 10px;        
+            }
+            @media screen and (max-width: 1400px) {
+                body {
+                    margin: 40px 40px 40px 40px;
+                }
+            }
+        </style>       
+        <!-- Bootstrap CSS -->
+       <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">-->
+        <title>Ros web page!</title>
+    </head>
+  
+    <body>
+        <h1>ROS Thermal Streaming Service </h1>
+        <!--<p>Web Socket Connection status: <span id="status"></span></p>-->
+        <div class="grid-container">
+            <!--<button type="button" id="button-start">Start</button>
+            <button type="button" id="button-stop">Stop</button>
+            <button type="button" id="button-snapshot">Snapshot</button>
+            <button type="button">Numero di snapshot: <span id="snapshot-status">0</span></button>-->
+            <!--<p>Min Temp <input type="number" id="minTemp" value=26 step="0.5"></p>
+            <p>Max Temp <input type="number" id="maxTemp" value=40 step="0.5"></p>-->
+        </div>
+        <div class="grid-container">
+           <!-- <div class="grid-item">
+                <img id="my_image1">
+            </div>-->
+            <div class="grid-item">
+                <h1>Usb Camera</h1>
+                <img id="my_image2"> 
+            </div>
+            <div class="grid-item">
+                <h1>Optris Xi 400</h1>
+                <img id="my_image3"> <!-- src="assets/img/placeholder.png">-->
+            </div>    
+            <div class="grid-item">
+                    <h1>Flir A15 </h1>
+                <img id="my_image4"> <!-- src="assets/img/placeholder.png">-->
+            </div>
+        </div>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>-->
+        <script type="text/javascript" src="https://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+        <script type="text/javascript">
+            // ROS web tools ROSLIBS: http://robotwebtools.org/tools.html
+            // https://msadowski.github.io/ros-web-tutorial-pt1/
+            var ros = new ROSLIB.Ros({
+                    url : 'ws:/192.168.0.85:9090'
+                });
+            
+            /*
+            ros.on('connection', function() {
+                document.getElementById("status").innerHTML = "Connected";
+            });
+            
+            ros.on('error', function(error) {
+                document.getElementById("status").innerHTML = "Error";
+            });
+            
+            ros.on('close', function() {
+                document.getElementById("status").innerHTML = "Closed";
+            });
+            */
+
+            // Listener
+            // https://roboticsknowledgebase.com/wiki/tools/roslibjs/
+            /*var img_listener = new ROSLIB.Topic({
+                ros : ros,
+                //name : '/usb_cam/image_raw/compressed',
+                    name : '/optris/image_raw/compressed',
+                    messageType : 'sensor_msgs/CompressedImage'
+                });
+
+                img_listener.subscribe(function(m) {
+                    document.getElementById('my_image1').src = "data:image/jpg;base64," + m.data;
+                    //img_listener.unsubscribe();
+                    //document.getElementById("msg").innerHTML = m.data;
+            });*/
+            
+            
+            var img_contour_listener = new ROSLIB.Topic({
+                ros : ros,
+                name : '/img_face_usb/compressed',
+                    messageType : 'sensor_msgs/CompressedImage'
+                });
+
+                img_contour_listener.subscribe(function(m) {
+                    document.getElementById('my_image2').src = "data:image/jpg;base64," + m.data;
+            });    
+            
+          
+            var img_threshold_listener = new ROSLIB.Topic({
+                ros : ros,
+                name : '/img_face_optris/compressed',
+                    messageType : 'sensor_msgs/CompressedImage'
+                });
+
+                img_threshold_listener.subscribe(function(m) {
+                    document.getElementById('my_image3').src = "data:image/jpg;base64," + m.data;
+            });     
+                      
+            var img_face_listener = new ROSLIB.Topic({
+                ros : ros,
+                name : '/img_face_flir/compressed',
+                    messageType : 'sensor_msgs/CompressedImage'
+                });
+
+                img_face_listener.subscribe(function(m) {
+                    document.getElementById('my_image4').src = "data:image/jpg;base64," + m.data;
+            });      
+
+            /*
+            var request = new ROSLIB.ServiceRequest({})    
+            var start_camera = new ROSLIB.Service({
+                ros : ros,
+                //name : '/usb_cam/start_capture',
+                name : '/optris/start',
+                
+                serviceType : 'std_srvs/Empty'
+            });
+            var stop_camera = new ROSLIB.Service({
+                ros : ros,
+                //name : '/usb_cam/stop_capture',
+                name : '/optris/stop',
+                serviceType : 'std_srvs/Empty'
+            });
+            var snapshot_camera = new ROSLIB.Service({
+                ros : ros,
+                name : '/snapshot',
+                serviceType : 'std_srvs/Trigger'
+            });
+
+            document.getElementById("button-start").onclick = function() {
+                start_camera.callService(request, function(result) {
+                console.log('Result for service call on '
+                    + start_camera.name);
+                });
+            };
+            document.getElementById("button-stop").onclick = function() {
+                stop_camera.callService(request, function(result) {
+                    console.log('Result for service call on '
+                        + stop_camera.name);
+                    });    
+            };
+            document.getElementById("button-snapshot").onclick = function() {
+                snapshot_camera.callService(request, function(result) {
+                    console.log(result);
+                    document.getElementById("snapshot-status").innerHTML = result.message;
+                    });    
+            };
+            */
+        </script>
+    
+    </body>
+
+  </html>

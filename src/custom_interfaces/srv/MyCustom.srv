@@ -1,4 +1,5 @@
 string path
+string cmd
 ---
 bool res
 string message
