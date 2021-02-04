@@ -12,16 +12,23 @@ from ament_index_python.packages import get_package_share_directory
 class MinimalPublisher(Node):
       def __init__(self):
          super().__init__('template_pkg_publisher_node')
-         path = os.path.join(get_package_share_directory('template_pkg'), 'images', 'sample1.png')
+
+         self.full_path = os.path.join(get_package_share_directory('template_pkg'), 'images')
+         self.paths = os.listdir(self.full_path) 
+
          self.publisher_ = self.create_publisher(Image, 'image_raw', 10)
          timer_period = 0.5  # seconds
          self.timer = self.create_timer(timer_period, self.timer_callback)
-         self.cv_image = cv2.imread(path,1) ### an RGB image 
          self.bridge = CvBridge()
 
       def timer_callback(self):
-         self.publisher_.publish(self.bridge.cv2_to_imgmsg(np.array(self.cv_image), "bgr8"))
-         #self.get_logger().info('Publishing an image')
+         for i in range(0,len(self.paths)):
+            name = os.path.join(self.full_path,self.paths[i])
+            im = cv2.imread(name, 1)
+            self.publisher_.publish(self.bridge.cv2_to_imgmsg(np.array(im), "bgr8"))
+            #self.get_logger().info('Publishing an image')
+            if i==((len(self.paths)-1)):
+               i=0
 
 def main(args=None):
     rclpy.init(args=args)

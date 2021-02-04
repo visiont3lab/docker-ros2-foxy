@@ -6,20 +6,6 @@ def generate_launch_description():
         Node(
             package='template_pkg',
             namespace='template_pkg',
-            executable='template_pkg_subscriber_node',
-            name='template_pkg_subscriber_node',
-            output='screen'
-        ),
-        Node(
-            package='template_pkg',
-            namespace='template_pkg',
-            executable='template_pkg_service_node',
-            name='template_pkg_service_node',
-            output='screen'
-        ),
-        Node(
-            package='template_pkg',
-            namespace='template_pkg',
             executable='template_pkg_publisher_node',
             name='template_pkg_publisher_node',
             output='screen'

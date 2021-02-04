@@ -10,7 +10,8 @@ from std_srvs.srv import Empty
 class LicensePlateDetector(Node):
     def __init__(self):
         super().__init__('license_plate_detector_node')
-        self.image_sub = self.create_subscription( Image, '/v4l2_camera/image_raw', self.image_cb,10)
+        #self.image_sub = self.create_subscription( Image, '/v4l2_camera/image_raw', self.image_cb,10)
+        self.image_sub = self.create_subscription( Image, '/template_pkg/image_raw', self.image_cb,10)
         self.image_pub = self.create_publisher(Image, 'image_license_plate', 10)
         self.srv_start = self.create_service(Empty, 'start', self.start_cb)
         self.srv_stop = self.create_service(Empty, 'stop', self.stop_cb)

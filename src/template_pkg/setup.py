@@ -14,7 +14,7 @@ setup(
         ('share/ament_index/resource_index/packages', ['resource/' + package_name]),
         (os.path.join('share', package_name), ['package.xml']),
         (os.path.join('share', package_name, 'launch'), glob(os.path.join('launch', '*.launch.py'))),
-        (os.path.join('share', package_name, 'images'), glob(os.path.join('images', '*.*'))),
+        (os.path.join('share', package_name, 'images'), glob(os.path.join(package_name,'data','inputs', '*.*'))),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
