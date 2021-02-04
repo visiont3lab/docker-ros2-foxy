@@ -24,8 +24,9 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-		'listener_node = template_pkg.template_pkg_function:main',
-        'publisher_node = template_pkg.template_pkg_pub:main',
+		'template_pkg_subscriber_node = template_pkg.template_pkg_subscriber:main',
+        'template_pkg_publisher_node = template_pkg.template_pkg_publisher:main',
+        'template_pkg_service_node = template_pkg.template_pkg_service:main',
         ],
     },
 )

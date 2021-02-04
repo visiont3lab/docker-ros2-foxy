@@ -5,9 +5,23 @@ def generate_launch_description():
     return LaunchDescription([
         Node(
             package='template_pkg',
-            node_namespace='minimal_publisher1',
-            node_executable='listener_node',
-            node_name='template_pkg_subscriber',
+            namespace='template_pkg',
+            executable='template_pkg_subscriber_node',
+            name='template_pkg_subscriber_node',
+            output='screen'
+        ),
+        Node(
+            package='template_pkg',
+            namespace='template_pkg',
+            executable='template_pkg_service_node',
+            name='template_pkg_service_node',
+            output='screen'
+        ),
+        Node(
+            package='template_pkg',
+            namespace='template_pkg',
+            executable='template_pkg_publisher_node',
+            name='template_pkg_publisher_node',
             output='screen'
         ),
     ])
