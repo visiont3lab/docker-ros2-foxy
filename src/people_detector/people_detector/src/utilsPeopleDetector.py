@@ -82,9 +82,9 @@ class PeopleDetector:
             for detectedCoordinates,scores in zip(allDetectionCoordinates,allScoresCoordinates):
                 #detectedCoordinatesFormat= row(0),column(1),h(2),w(3) 
                 increaseRoi(detectedCoordinates,0.1)                 
-                cv2.rectangle(img_Yolo, (detectedCoordinates[1], detectedCoordinates[0]), (detectedCoordinates[1] + detectedCoordinates[3], detectedCoordinates[0] + detectedCoordinates[2]), [0,255,0], 2)
-                text = "{}: {:.4f}".format("Person",scores)
-                cv2.putText(img_Yolo, text, (detectedCoordinates[1], detectedCoordinates[0] - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, [0,255,0], 2)
+                cv2.rectangle(img_Yolo, (detectedCoordinates[1], detectedCoordinates[0]), (detectedCoordinates[1] + detectedCoordinates[3], detectedCoordinates[0] + detectedCoordinates[2]), [0,255,0], 1)
+                #text = "{}: {:.4f}".format("Person",scores)
+                #cv2.putText(img_Yolo, text, (detectedCoordinates[1], detectedCoordinates[0] - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, [0,255,0], 2)
                 createImageHole(img_hole,detectedCoordinates[1], detectedCoordinates[0], detectedCoordinates[1] + detectedCoordinates[3], detectedCoordinates[0] + detectedCoordinates[2])
                 createMask(mask,detectedCoordinates[1], detectedCoordinates[0], detectedCoordinates[1] + detectedCoordinates[3], detectedCoordinates[0] + detectedCoordinates[2])
 
@@ -112,9 +112,9 @@ class PeopleDetector:
             for detectedCoordinates,scores in zip(allDetectionCoordinates,allScoresCoordinates):
                 #detectedCoordinatesFormat= row(0),column(1),h(2),w(3) 
                 increaseRoi(detectedCoordinates,0.1)                 
-                cv2.rectangle(img_Yolo, (detectedCoordinates[1], detectedCoordinates[0]), (detectedCoordinates[1] + detectedCoordinates[3], detectedCoordinates[0] + detectedCoordinates[2]), [0,255,0], 2)
-                text = "{}: {:.4f}".format("Person",scores)
-                cv2.putText(img_Yolo, text, (detectedCoordinates[1], detectedCoordinates[0] - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, [0,255,0], 2)
+                cv2.rectangle(img_Yolo, (detectedCoordinates[1], detectedCoordinates[0]), (detectedCoordinates[1] + detectedCoordinates[3], detectedCoordinates[0] + detectedCoordinates[2]), [0,255,0], 1)
+                #text = "{}: {:.4f}".format("Person",scores)
+                #cv2.putText(img_Yolo, text, (detectedCoordinates[1], detectedCoordinates[0] - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, [0,255,0], 2)
                 createImageHole(img_hole,detectedCoordinates[1], detectedCoordinates[0], detectedCoordinates[1] + detectedCoordinates[3], detectedCoordinates[0] + detectedCoordinates[2])
                 createMask(mask,detectedCoordinates[1], detectedCoordinates[0], detectedCoordinates[1] + detectedCoordinates[3], detectedCoordinates[0] + detectedCoordinates[2])
 
