@@ -3,9 +3,8 @@ import rclpy
 from rclpy.node import Node
 from ament_index_python.packages import get_package_share_directory
 from license_plate_detector.src.utilsLicensePlate import LicensePlateDetector    
-import os
-import cv2 
 from datetime import datetime 
+import os
 
 '''
 # https://index.ros.org/doc/ros2/Tutorials/Writing-A-Simple-Py-Service-And-Client/
@@ -26,7 +25,7 @@ class LicensePlateDetectorService(Node):
         super().__init__('license_plate_detector_service')
         
         self.srv_pv_start = self.create_service(MyCustom, 'process_video', self.pv_cb)
-        model_path = os.path.join(get_package_share_directory('license_plate_detector'), 'data', 'lp-detector','wpod-net_update1.h5')
+        model_path = os.path.join(get_package_share_directory('license_plate_detector'),  'data', 'lp-detector','wpod-net_update1.h5')
         self.Lpd = LicensePlateDetector(model_path)
  
     def pv_cb(self, request, response):
@@ -45,11 +44,8 @@ class LicensePlateDetectorService(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-
     MyLicensePlateDetectorService = LicensePlateDetectorService()
-
     rclpy.spin(MyLicensePlateDetectorService)
-
     rclpy.shutdown()
 
 

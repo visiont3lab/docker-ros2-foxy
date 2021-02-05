@@ -98,6 +98,10 @@ class LicensePlateDetector:
 		#imDraw = np.where(mask==np.array([0, 0, 0]),imDraw,imBlurred)
 		return imDraw
 
+	def processImage(self,im):
+		res,imDraw,Lpts,LpImgs = self.predict(im)
+		return res,imDraw,Lpts,LpImgs
+	
 	def processVideo(self,inp_path,out_path):
 		cap = cv2.VideoCapture(os.path.join(inp_path))
 

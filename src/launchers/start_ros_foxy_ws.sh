@@ -8,12 +8,12 @@ docker run -it --rm \
     --pid host  \
     --env="DISPLAY=$DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
-    --device=/dev/video0 \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     -v $ROS2_FOXY_ENV/src:/ws/src \
-    visiont3lab/ros2ws:custom \
+    visiont3lab/ros2ws:web \
     bash 
 
+#  --device=/dev/video0 \
 # Extra: https://github.com/visiont3lab/docker-ros-laser-sim/blob/master/scripts/start_docker_laser_sim.sh
 # apt update && apt install inetutils-ping python3-pip  -y
 # apt install libgl1-mesa-glx

@@ -13,7 +13,8 @@ cd /ws/src/lauchers  && ./launch_real_time_license_plate_detector.sh
 cd $ROS2_FOXY_ENV &&  docker build -t ros2ws:custom  --network host .
 docker start ros2ws 
 docker exec -it ros2ws /bin/bash
-docker tag ros2ws:custom visiont3lab/ros2ws:custom
+#docker tag ros2ws:custom visiont3lab/ros2ws:custom
+docker tag ros2ws:custom visiont3lab/ros2ws:web
 ```
 
 
